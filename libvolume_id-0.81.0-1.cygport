@@ -1,0 +1,22 @@
+DESCRIPTION=
+HOMEPAGE="http://www.marcuscom.com/downloads/"
+SRC_URI="http://www.marcuscom.com/downloads/${P}.tar.bz2"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake \
+		CC=gcc E=echo RANLIB=ranlib
+}
+
+src_install() {
+	cd ${B}
+	dobin *.dll
+	dolib *.a
+
+	insinto /usr/include
+	doins libvolume_id.h
+
+	insinto /usr/lib/pkgconfig
+	doins libvolume_id.pc
+}
